@@ -1,0 +1,16 @@
+# https://github.com/marketplace/actions/conventional-commit-lint
+
+name: Conventional Commit Lint
+
+on: [ push, pull_request ]
+
+concurrency:
+  group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  commit-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      # conventional style
+      - uses: ahmadnassri/action-commit-lint@v2.1.17

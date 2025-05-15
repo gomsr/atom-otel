@@ -1,0 +1,46 @@
+name: Build Kit-App Package
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+  push:
+    branches:
+  pull_request:
+
+concurrency:
+  group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest'] #, 'macOS-latest'
+        go: ['1.23.x', '1.24.x'] # '1.18.x',
+    runs-on: ${{ matrix.os }}
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    steps:
+      - name: Export Global Var
+        run: |
+          echo "PROJECT_HOME=$PWD" >> $GITHUB_ENV
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - uses: WillAbides/setup-go-faster@v1.14.0
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Build Logx Package
+        run: |
+          go build -v -race
+          # go build ./...
+        working-directory: ./
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: ${{ matrix.os }}-${{ matrix.go }}-Jasypt-Go
+#          path: ${{ github.workspace }}/**/Jasypt-Go
+#          retention-days: 1
