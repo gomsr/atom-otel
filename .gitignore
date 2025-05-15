@@ -1,0 +1,17 @@
+*
+!*.go
+!*.sum
+!*.mod
+!*.md
+!LICENSE
+!.gitkeep
+!.gitconfig
+!static/**
+!*/
+!go.work
+!*.sh
+!*.yml
+!*.yaml
+!*.json
+!*.toml
+!*.sql
