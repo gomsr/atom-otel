@@ -5,7 +5,7 @@ go 1.23.1
 require (
 	github.com/gomsr/atom-log v0.0.1
 	github.com/kongmsr/oneid-core v0.4.1
-	github.com/redis/go-redis/v9 v9.7.3
+	github.com/redis/go-redis/v9 v9.10.0
 	github.com/stretchr/testify v1.10.0
 	go.mongodb.org/mongo-driver v1.17.1
 	go.opentelemetry.io/otel v1.34.0
